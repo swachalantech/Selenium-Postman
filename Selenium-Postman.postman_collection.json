@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "877d49c0-b2a1-4971-a711-cd37ffc1237a",
+		"name": "Selenium-Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create New Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							"bodyData = JSON.parse(responseBody)\r",
+							"varSessionId = bodyData.sessionId\r",
+							"console.log(varSessionId)\r",
+							"pm.environment.set(\"sessionId\",varSessionId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"desiredCapabilities\": {\r\n    \"browserName\": \"chrome\"\r\n  }\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Current Window Handle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							"bodyData = JSON.parse(responseBody)\r",
+							"valWindowHandle = bodyData.value\r",
+							"console.log(valWindowHandle)\r",
+							"pm.environment.set(\"window_handle\",valWindowHandle);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/window_handle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"window_handle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maximize Browser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/window/{{window_handle}}/maximize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"window",
+						"{{window_handle}}",
+						"maximize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Navigate To URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"url\":\"https://www.google.com\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/url",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"url"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Element Search Box",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							"bodyData = JSON.parse(responseBody)\r",
+							"eleSearchBox = bodyData.value\r",
+							"eleSearchBoxId = JSON.stringify(eleSearchBox).split(':')[1].replace(/\\\"/g, \"\").replace(/}/g, \"\")  \r",
+							"console.log(eleSearchBoxId)\r",
+							"pm.environment.set(\"SearchBoxId\", eleSearchBoxId);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"using\":\"name\",\r\n\t\"value\":\"q\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/element",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"element"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Keys",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"value\":[\"SACHIN TENDULKAR\"]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/element/{{SearchBoxId}}/value",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"element",
+						"{{SearchBoxId}}",
+						"value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Search Button",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							"bodyData = JSON.parse(responseBody)\r",
+							"eleSearchButton = bodyData.value\r",
+							"eleSearchButtonId = JSON.stringify(eleSearchButton).split(':')[1].replace(/\\\"/g, \"\").replace(/}/g, \"\")\r",
+							"console.log(eleSearchButtonId)\r",
+							"pm.environment.set(\"SearchButtonId\", eleSearchButtonId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"using\":\"name\",\r\n\t\"value\":\"btnK\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/element",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"element"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Click on Search Button",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "793d20cc-b253-4180-b75c-4ccc85849e31",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4444/wd/hub/session/{{sessionId}}/element/{{SearchButtonId}}/click",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"wd",
+						"hub",
+						"session",
+						"{{sessionId}}",
+						"element",
+						"{{SearchButtonId}}",
+						"click"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
